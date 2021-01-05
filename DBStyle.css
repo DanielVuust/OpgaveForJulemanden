@@ -1,0 +1,56 @@
+*{
+    padding:0px;
+    margin:0px;
+}
+form {
+    display:flex;
+    flex-wrap: nowrap;
+}
+input {
+    flex-grow:1;
+    height:7vh;
+}
+main{
+    display:flex;
+    text-align: center;
+}
+main div{
+    float:left;
+    width:50%;
+    padding:10px;
+}
+.form{
+    display: block;
+    background-color: white;
+    position:fixed;
+    opacity: 0;
+    width:50vw;
+    height:50vh;
+    pointer-events: none;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    border-style:solid;
+    border-radius: 20px;
+}
+.form *{
+    
+    vertical-align: middle;
+    height:30px;
+}
+.Navn{
+    width:300px;
+}
+table{
+    margin-left:auto;
+    margin-right:auto;
+
+}
+table tr{
+    padding:10px;
+    width:200px;
+    
+}
+table tr th{
+    padding:5px;
+}
