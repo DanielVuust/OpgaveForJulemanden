@@ -2,11 +2,7 @@
 
 class OutputDB
 {
-public function DisplayDB($db){
-
-    require_once('ConnectDB.php');
-    $connectDB = new ConnectDB();
-    $mysqli = $connectDB->GetDBConnection();
+public function DisplayDB($mysqli, $db){
 
 
     $sqlquery = "SELECT * from $db";
@@ -25,11 +21,13 @@ public function DisplayDB($db){
     }
     echo "</tr>";
     while($row = mysqli_fetch_array($result)) {
-    $id = $row[0];
-    $gave = $row[1];
-    $antal = $row[2];
-
-    echo "<tr><td>".$id."</td><td>".$gave."</td><td>". $antal."</td><tr>";
+        echo "<tr>";
+        for ($i = 0; $i< count($row)/2; $i++){
+            echo "<td>";
+            echo "$row[$i]";
+            echo "</td>"; 
+        }
+        echo "</tr>";   
     }
     echo "</table>";
     

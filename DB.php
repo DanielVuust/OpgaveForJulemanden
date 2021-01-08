@@ -8,8 +8,14 @@
 <?php
 session_start();
 
+require_once('ConnectDB.php');
+$connectDB = new ConnectDB();
+$mysqli = $connectDB->GetDBConnection();
+
+
 require_once ('OutputDB.php');
 $outputDB = new OutputDB();
+
 
 ?>
 <body>
@@ -28,27 +34,30 @@ $outputDB = new OutputDB();
         <div>
         <h1>Gaver</h1>
         <?php
-        $outputDB->DisplayDB("gaver");//Viser daten indeni databasen 
+        $outputDB->DisplayDB($mysqli, "gaver");//Shows the current data in the database 
         ?>
         </div>
         <div>
         <h1>Reservedele</h1>
         <?php
-        $outputDB->DisplayDB("reservedele");//Viser daten indeni databasen
+        $outputDB->DisplayDB($mysqli, "reservedele");//Shows the current data in the database 
         ?>
         </div>
         <div>
         <h1>Lokation</h1>
         <?php
-        $outputDB->DisplayDB("lokation");//Viser daten indeni databasen
+        $outputDB->DisplayDB($mysqli, "lokation");//Shows the current data in the database 
         ?>
         </div>
         
 
-        <?php 
+        <?php        
         require_once ('Forms.php');
         ?>
     </main>
+    <form action="AlterDB.php" method="post">
+        <input type="submit" name="updateDB" value="Update DB">
+    </form>
     
     <script> 
         

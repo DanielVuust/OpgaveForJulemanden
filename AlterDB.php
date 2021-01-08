@@ -3,50 +3,33 @@ echo "<br>";
 
 
 if(isset($_POST['submit'])){
-    echo "yooooooo";
     $username=$_POST['username'];
     $password=$_POST['password'];
 
     
 }
     session_start();
-    require_once('ConnectDB.php');
-    $connectDB = new ConnectDB();
-    $mysqli = $connectDB->GetDBConnection();
-
     require_once('AlterDBClass.php');
     $alterDBClass = new AlterDBClass();
-    
+    $alterDBClass->setMysqli();
 
 if (isset($_POST['submitGaveForm'])){
-    $gaveNavn = $_POST['gaveNavn'];
-    $TilføjEllerFjern = $_POST['TilføjEllerFjern'];
-    if (isset($_POST['antal'])){
-        $antal = $_POST['antal'];
-    }
-    else{
-    $antal = 0;
-    }
-    $alterDBClass->addGave($TilføjEllerFjern, $gaveNavn, $antal,$mysqli);
+    
+    $alterDBClass->addGave();
     
 }
-elseif (isset($_POST['submitReservedel'])){
-    $reservedelNavn = $_POST['reservedelNavn'];
-    $TilføjEllerFjern = $_POST['TilføjEllerFjern'];
-    if (isset($_POST['antal'])){
-        $antal = ($_POST['antal']);
-    }
-    else{
-        $antal = 10;
-    }
+elseif (isset($_POST['submitReservedelForm'])){
 
-    $alterDBClass->addReservedel($TilføjEllerFjern, $reservedelNavn, $antal,$mysqli);
+    $alterDBClass->addReservedel();
 
 }
-elseif (isset($_POST['submitLokation'])){
+elseif (isset($_POST['submitLokationForm'])){
 
+    $alterDBClass->addLokation();
+    }
+elseif (isset($_POST['updateDB'])){
+    $alterDBClass->updateDB();
 }
-header('location:DB.php');
-
+echo "<br> <a  href='DB.php'> yo </a>";
 
 
