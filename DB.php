@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="dk">
 <head>
-    <link rel="stylesheet" href="DBstyle.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fraunces">
     <title>DB</title>
     <script type="text/javascript" src="Javascript.js"></script>
 </head>
 <?php
-session_start();
+global $mysqli;
+
+
+
 
 require_once('ConnectDB.php');
 $connectDB = new ConnectDB();
-$mysqli = $connectDB->GetDBConnection();
+$mysqli = $connectDB->getMysqli();
 
 
 require_once ('OutputDB.php');
@@ -55,14 +59,6 @@ $outputDB = new OutputDB();
         require_once ('Forms.php');
         ?>
     </main>
-    <form action="AlterDB.php" method="post">
-        <input type="submit" name="updateDB" value="Update DB">
-    </form>
-    
-    <script> 
-        
-        
-        
-    </script>
+
 </body>
 </html>

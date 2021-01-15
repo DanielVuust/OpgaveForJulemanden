@@ -5,7 +5,7 @@ class AlterDBClass{
     public function setMysqli(){
         require_once('ConnectDB.php');
         $connectDB = new ConnectDB();
-        $this->mysqli = $connectDB->GetDBConnection();
+        $this->mysqli = $connectDB->GetMysqli();
     }
     public function addGave(){
         $gaveNavn = $_POST['gaveNavn'];
@@ -30,12 +30,14 @@ class AlterDBClass{
                 $this->mysqli->query($sqlquery);
             }
             else {
-            //Indsætter en række i gaver 
-            $sqlquery = "INSERT INTO gaver (gave, antal) VALUES ('$gaveNavn', '$antal')";
-            $this->mysqli->query($sqlquery);
-            //Ændrer lokationer
-            $sqlquery = "ALTER TABLE lokation ADD $gaveNavn INT(6)";
-            $this->mysqli->query($sqlquery);
+                //Indsætter en række i gaver 
+                $sqlquery = "INSERT INTO gaver (gave, antal) VALUES ('$gaveNavn', '$antal')";
+                $reslut = $this->mysqli->query($sqlquery);
+                
+                //Ændrer lokationer
+                $sqlquery = "ALTER TABLE lokation ADD $gaveNavn int(6)";
+                $result = $this->mysqli->query($sqlquery);
+                $this->updateDB();
             }
             
         }
@@ -126,24 +128,51 @@ class AlterDBClass{
         
         
         $adresse = $_POST['adresse'];
+        
         if ($_POST['TilføjEllerFjern'] == 'Tilføj'){
-            $sqlquery = "SELECT adresse FROM lokation WHERE adresse=$adresse";
-            $result  = $this->mysqli->query($sqlquery);
-            if ($result->num_rows<=0){
+            $sqlquery = "SELECT adresse FROM lokation WHERE adresse='$adresse'";
+            $result = $this->mysqli->query($sqlquery);
+            
+            
+            if ($result->num_rows == 0){
                 $sqlquery = "INSERT INTO lokation (adresse) VALUE ('$adresse')";
                 $this->mysqli->query($sqlquery);
             }
             
             $sqlquery ="SHOW COLUMNS FROM lokation";
             $columns = $this->mysqli->query($sqlquery);
+            
+            
+
             while ($column = mysqli_fetch_array($columns)){
+                echo "<br>--------------------------<br><br>$column[0]<br>";
                 if ($column[0]=='id' || $column[0] == 'adresse'){
                     continue;
                 }
-            $antal = $_POST[$column[0]];
-            $sqlquery = "UPDATE lokation SET $column[0]=$column[0] + $antal where adresse='$adresse'";
-            $this->mysqli->query($sqlquery);
-            
+                if (empty($_POST[$column[0]])){
+                    $antal = 0;
+                }
+                else{
+                    $antal = $_POST[$column[0]];
+                }
+                $sqlquery = "SELECT * FROM lokation WHERE adresse='$adresse'";
+            $result = $this->mysqli->query($sqlquery);
+                while ($row = $result->fetch_assoc()){
+                    if (is_null($row[$column[0]])){
+                        $sqlquery = "UPDATE lokation SET $column[0]=  $antal WHERE adresse='$adresse'";
+                    }
+                    else{
+                        $sqlquery = "UPDATE lokation SET $column[0]=  $column[0] + $antal WHERE adresse='$adresse'";
+                    }
+                }
+                echo $sqlquery;
+                $result = $this->mysqli->query($sqlquery);
+                if ($result){
+                    echo "success";
+                }
+                else{
+                    echo "no success ):";
+                }
             }
         }
         elseif ($_POST['TilføjEllerFjern'] == "Fjern"){
@@ -160,32 +189,22 @@ class AlterDBClass{
                 }
                 $sqlquery = "UPDATE lokation SET $column[0]=$column[0]-$antal WHERE adresse='$adresse'";
                 $this->mysqli->query($sqlquery);
-            }
-            
+            }            
         }
-       
-        
-
-
-
     }
-    public function updateDB(){
+
+    private function updateDB(){
         $sqlquery = "SHOW COLUMNS FROM lokation";
         $columns = $this->mysqli->query($sqlquery);
         while ($column = mysqli_fetch_array($columns)){
             
             $sqlquery = "SELECT * from lokation WHERE id>'0'";
-            $rows = $this->mysqli->query($sqlquery);
-            while ($row = mysqli_fetch_array($rows)){
-                //echo "$row[1] $column[0] <br>";
-                foreach ($row as $ro){
-                    if (!isset($ro)){
-                    $ro = 0;
-                    }
-                $sqlquery = "UPDATE lokation SET $column[0] = $ro WHERE id>'0'";
-                $this->mysqli->query($sqlquery);
-                }
-                
+            $result = $this->mysqli->query($sqlquery);
+            while ($row = mysqli_fetch_array($result)){
+                if (is_null($row[$column[0]])){
+                    $sqlquery = "UPDATE lokation SET $column[0] = 0" ;
+                    $this->mysqli->query($sqlquery);
+                }         
             }
         }
     }

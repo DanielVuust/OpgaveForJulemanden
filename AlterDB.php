@@ -27,9 +27,7 @@ elseif (isset($_POST['submitLokationForm'])){
 
     $alterDBClass->addLokation();
     }
-elseif (isset($_POST['updateDB'])){
-    $alterDBClass->updateDB();
-}
-echo "<br> <a  href='DB.php'> yo </a>";
 
+//echo "<br> <a  href='DB.php'> yo </a>";
+header('location:DB.php');
 

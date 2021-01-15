@@ -1,5 +1,5 @@
 
-<form method="post"  id="gaveForm" class="form" action="AlterDB.php">
+<form method="post"  id="gaveForm" class="form" action="AlterDB.php" autocomplete="off">
     <input type="radio" value="Tilføj" name="TilføjEllerFjern">Tilføj
     <input type="radio" value="Fjern" name="TilføjEllerFjern">Fjern
     <br><br>
@@ -12,7 +12,7 @@
     <input type="button" id="closeForm" style="float:buttom;width:50px;" value="luk"  onclick="removeForms()">
 </form>
 
-<form method="post" id="reservedelForm" class="form" action="AlterDB.php" >
+<form method="post" id="reservedelForm" class="form" action="AlterDB.php" autocomplete="off">
     <input type="radio" value="Tilføj" name="TilføjEllerFjern">Tilføj
     <input type="radio" value="Fjern" name="TilføjEllerFjern">Fjern
     <br><br>
@@ -26,7 +26,7 @@
 </form>
 
 
-<form method="post" id="lokationForm" class="form" action="AlterDB.php" >
+<form method="post" id="lokationForm" class="form" action="AlterDB.php" autocomplete="off">
     <input type="radio" value="Tilføj" name="TilføjEllerFjern">Tilføj
     <input type="radio" value="Fjern" name="TilføjEllerFjern">Fjern
     <br><br>

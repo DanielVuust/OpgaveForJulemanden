@@ -1,0 +1,98 @@
+*{
+    padding:0px;
+    margin:0px;
+    font-family: Fraunces;
+}
+body{
+    height:100vh;
+    background-image:url("Pics/ChristmasBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+}
+header{
+    display:flex;
+}
+header button{
+    height:40px;
+    width:100%;
+    margin: 5px 20px;
+    flex-wrap: nowrap;
+    background-color: rgba(114, 7, 7, 0.664);
+    border:none;
+    border-radius:20px;
+}
+header button:hover{
+    background-color: rgba(114, 7, 7);
+}
+form {
+    display:flex;
+    flex-wrap: nowrap;
+}
+input {
+    flex-grow:1;
+    height:7vh;
+}
+main{
+    display:flex;
+    text-align: center;
+}
+main *{
+    font-size:20px;
+}
+main div h1{
+    font-size:30px;
+}
+main div{
+    float:left;
+    width:50%;
+    padding:10px;
+}
+.form{
+    padding:20px 0px;
+    width:25%;
+    display: block;
+    background-color: white;
+    position:fixed;
+    opacity: 0;    
+    pointer-events: none;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    border-style:solid;
+    border-radius: 20px;
+}
+.form *{   
+    vertical-align: middle;
+    height:30px;
+}
+#loginForm{
+    text-align: center;
+    top:25%;
+    pointer-events: all;
+    opacity:1;
+    height:13vh;
+    width:25vw;
+    float:right;
+}
+#loginForm *{
+    margin:10px 0px;
+}
+.Navn{
+    width:300px;
+}
+table{
+    margin-left:auto;
+    margin-right:auto;
+
+}
+table tr{
+    margin:10px 20px;
+    padding:10px;
+    width:200px;
+    
+}
+table tr th{
+    padding:5px;
+}
+
